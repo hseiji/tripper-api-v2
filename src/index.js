@@ -11,9 +11,11 @@ app.use(urlencoded({ extended: true }));
 
 //import routes
 const eventRoutes = require('./routes/events');
+const userRoutes = require('./routes/users');
 
 //initialize routes
 app.use('/api', eventRoutes);
+app.use('/api', userRoutes);
 
 //app start
 const appStart = () => {
