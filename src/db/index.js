@@ -5,6 +5,7 @@ const pool = new Pool({
   password: 'vagrant',
   database: 'finaltripper',
   port: 5432,
+  connectionString: process.env.DATABASE_URL,
 })
 
 module.exports = {
