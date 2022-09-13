@@ -1,13 +1,8 @@
 const { Router } = require('express')
-// const { getEvents } = require('../controllers/auth')
-// const { validationMiddleware } = require('../middlewares/validations-middleware')
-// const { registerValidation, loginValidation } = require('../validators/auth')
-// const { userAuth } = require('../middlewares/auth-middleware')
 const router = Router()
+const { getEvents } = require('../controllers/events')
 
-router.get('/events', (req,res) => {
-  return res.send("Hello there!")
-})
+router.get('/events', getEvents);
 
 
 module.exports = router

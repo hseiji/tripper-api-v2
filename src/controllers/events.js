@@ -1,8 +1,12 @@
 const db = require('../db');
 
-exports.getUsers = async (req,res) => {
+exports.getEvents = async (req,res) => {
   try {
-    const response = await db.query('select * from users');
+    const { rows } = await db.query('select * from events');
+    return res.status(200).json({
+      success: true,
+      users: rows,
+    })
   } catch (error) {
     console.log(error.message);
   }
