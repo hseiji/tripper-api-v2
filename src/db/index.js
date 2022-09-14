@@ -12,11 +12,6 @@ const pool = new Pool({
 //   port: 5432,
 // })
 
-// module.exports = {
-//   query: (text, params) => pool.query(text, params),
-//   connect: () => pool.connect(),
-// }
-
 pool
   .connect()
   .catch(e => console.log(`Error connecting to Postgres server:\n${e}`));
