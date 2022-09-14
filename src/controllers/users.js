@@ -18,10 +18,10 @@ exports.getUserInfo = async (req,res) => {
     let queryString = `SELECT * FROM users WHERE users.id = $1;`;
     let queryParams = [req.userId];
     const { rows } = await db.query(queryString, queryParams)
-    res.send("queryParams:", queryParams)
     return res.status(200).json({
       success: true,
       info: rows,
+      queryParams: queryParams,
     })
   } catch (err) {
     console.log(error.message);
