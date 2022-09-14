@@ -16,7 +16,7 @@ exports.getUsers = async (req,res) => {
 exports.getUserInfo = async (req,res) => {
   try {
     let queryString = `SELECT * FROM users WHERE users.id = $1;`;
-    let queryParams = [req.userId];
+    let queryParams = [req.params.userId];
     const { rows } = await db.query(queryString, queryParams)
     return res.status(200).json({
       success: true,
