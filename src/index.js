@@ -12,10 +12,12 @@ app.use(urlencoded({ extended: true }));
 //import routes
 const eventRoutes = require('./routes/events');
 const userRoutes = require('./routes/users');
+const planRoutes = require('./routes/plans');
 
 //initialize routes
 app.use('/api', eventRoutes);
 app.use('/api', userRoutes);
+app.use('/api/', planRoutes);
 app.get('/', (req, res) => {
   res.send("Hello there1")
   console.log("Hello there2");
