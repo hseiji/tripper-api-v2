@@ -1,5 +1,6 @@
 const db = require('../db');
 
+// Get all users
 exports.getUsers = async (req,res) => {
   try {
     const { rows } = await db.query('select * from users');

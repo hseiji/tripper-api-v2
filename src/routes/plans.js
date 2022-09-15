@@ -1,5 +1,4 @@
 const { Router } = require('express');
-const { getEventsForPlan } = require('../controllers/events');
 const { getPlansForUser } = require('../controllers/plans');
 const router = Router()
 
