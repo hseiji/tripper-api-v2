@@ -13,6 +13,7 @@ exports.getUsers = async (req,res) => {
 
 };
 
+// Get user information
 exports.getUserInfo = async (req,res) => {
   try {
     let queryString = `SELECT * FROM users WHERE users.id = $1;`;
@@ -20,10 +21,10 @@ exports.getUserInfo = async (req,res) => {
     const { rows } = await db.query(queryString, queryParams)
     return res.status(200).json({
       success: true,
-      info: rows,
+      data: rows,
       queryParams: queryParams,
     })
-  } catch (err) {
+  } catch (error) {
     console.log(error.message);
   }
 }
@@ -43,3 +44,5 @@ exports.getUserInfo = async (req,res) => {
 //     });
 // };
 // exports.getUserInfo = getUserInfo;
+
+
