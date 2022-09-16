@@ -29,3 +29,29 @@ exports.getEventsForPlan = async (req, res) => {
     
   }
 }
+
+// Add Event to Plan
+exports.addEventToPlan = async (req, res) => {
+  try {
+    let queryString = `INSERT INTO events (id, plan_id, name, description, image, lat, lng, date_time, street_address, image_url) VALUES ($1, $2, $3, $4, $5, $6, $7, NOW(), $8, $9);`;
+    let queryParams = [
+      req.body.event.id,
+      req.params.planId,
+      req.body.event.name,
+      req.body.event.alias,
+      req.body.event.url,
+      req.body.event.lat,
+      req.body.event.lng,
+      req.body.event.address,
+      req.body.event.image_url,
+    ];
+    const { rows } = await db.query(queryString, queryParams)
+    return res.status(200).json({
+      success: true,
+      data: rows,
+      queryParams: queryParams,
+    })
+  } catch (error) {
+    
+  }  
+}
