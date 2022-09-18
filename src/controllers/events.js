@@ -113,12 +113,12 @@ exports.markEventDone = async (req, res) => {
 exports.getSearch = async (req, res) => {
   try {
     const data = await searchYelp(req.params.keyword, req.params.location);
-    //return res.send(data.business);
-    return res.status(200).json({
-      success: true,
-      data: data.business,
-      api_key: yelpKey,
-    })   
+    return res.send(data.business);
+    // return res.status(200).json({
+    //   success: true,
+    //   data: data.business,
+    //   api_key: yelpKey,
+    // });
 
   } catch (error) {
     console.log(error.message);
