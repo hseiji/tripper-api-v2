@@ -5,7 +5,7 @@ const { getEvents, getEventsForPlan, addEventToPlan, deleteEvent, getEventById }
 router.get('/events', getEvents);
 router.get('/events/:planId', getEventsForPlan);
 router.put('/events/:planId', addEventToPlan);
-router.get('/events/:eventId', getEventById);
-router.delete('/events/:eventId', deleteEvent);
+router.get('/events/id/:eventId', getEventById);
+router.delete('/events/id/:eventId', deleteEvent);
 
 module.exports = router
