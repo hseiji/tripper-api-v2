@@ -1,5 +1,10 @@
 const db = require('../db');
 
+const { yelpKey } = process.env.YELP_APIKEY;
+const yelp = require('yelp-fusion');
+const client = yelp.client(yelpKey);
+
+
 // Get all events
 exports.getEvents = async (req, res) => {
   try {
@@ -102,4 +107,27 @@ exports.markEventDone = async (req, res) => {
   } catch (error) {
     console.log(error.message);
   }  
+}
+
+// Search keyword based on location
+exports.getSearch = async (req, res) => {
+  try {
+    const data = await getSearch(req.params.keyword, req.params.location);
+    return res.send(data.business);
+  } catch (error) {
+    console.log(error.message);
+  }    
+}
+
+// getSearch function - Yelp Search
+function getSearch(keyword, location) {
+  return client.search({
+    term: keyword,
+    location: location,
+    limit: 5,
+  }).then(res => {
+    return res.jsonBody;
+  }).catch(e => {
+    console.log(e);
+  });
 }
