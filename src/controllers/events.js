@@ -31,7 +31,7 @@ exports.getEventsForPlan = async (req, res) => {
 }
 
 // Get specific event by its id
-exports.getEventById = (req, res) => {
+exports.getEventById = async (req, res) => {
   try {
     let queryString = `SELECT * FROM events WHERE id = $1;`;
     let queryParams = [req.params.eventId];
