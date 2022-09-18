@@ -30,6 +30,22 @@ exports.getEventsForPlan = async (req, res) => {
   }
 }
 
+// Get specific event by its id
+exports.getEventById = (req, res) => {
+  try {
+    let queryString = `SELECT * FROM events WHERE id = $1;`;
+    let queryParams = [req.params.eventId];
+    const { rows } = await db.query(queryString, queryParams)
+    return res.status(200).json({
+      success: true,
+      data: rows,
+      queryParams: queryParams,
+    })
+  } catch (error) {
+    console.log(error.message);
+  }  
+}
+
 // Add Event to Plan
 exports.addEventToPlan = async (req, res) => {
   try {
@@ -56,7 +72,7 @@ exports.addEventToPlan = async (req, res) => {
   }  
 }
 
-// Delete Event From Database
+// Delete Event
 exports.deleteEvent = async (req, res) => {
   try {
     let queryString = `DELETE FROM events WHERE id = $1;`;
