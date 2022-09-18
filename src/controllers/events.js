@@ -87,3 +87,19 @@ exports.deleteEvent = async (req, res) => {
     console.log(error.message);
   }
 }
+
+// Mark Event as "done"
+exports.markEventDone = async (req, res) => {
+  try {
+    let queryString = `UPDATE events SET done = NOT done WHERE id = $1;`;
+    let queryParams = [req.params.eventId];
+    const { rows } = await db.query(queryString, queryParams)
+    return res.status(200).json({
+      success: true,
+      data: rows,
+      queryParams: queryParams,
+    })    
+  } catch (error) {
+    console.log(error.message);
+  }  
+}
