@@ -22,11 +22,7 @@ exports.getEventsForPlan = async (req, res) => {
     let queryString = `SELECT * FROM events WHERE events.plan_id = $1 ORDER BY date_time`;
     let queryParams = [req.params.planId];
     const { rows } = await db.query(queryString, queryParams)
-    return res.status(200).json({
-      success: true,
-      data: rows,
-      queryParams: queryParams,
-    })
+    return res.status(200).json({ rows })
   } catch (error) {
     console.log(error.message);
   }
@@ -38,11 +34,7 @@ exports.getEventById = async (req, res) => {
     let queryString = `SELECT * FROM events WHERE id = $1;`;
     let queryParams = [req.params.eventId];
     const { rows } = await db.query(queryString, queryParams)
-    return res.status(200).json({
-      success: true,
-      data: rows,
-      queryParams: queryParams,
-    })
+    return res.status(200).json({ rows })
   } catch (error) {
     console.log(error.message);
   }  
@@ -64,11 +56,7 @@ exports.addEventToPlan = async (req, res) => {
       req.body.event.image_url,
     ];
     const { rows } = await db.query(queryString, queryParams)
-    return res.status(200).json({
-      success: true,
-      data: rows,
-      queryParams: queryParams,
-    })
+    return res.status(200).json({ rows })
   } catch (error) {
     console.log(error.message);
   }  
@@ -80,11 +68,7 @@ exports.deleteEvent = async (req, res) => {
     let queryString = `DELETE FROM events WHERE id = $1;`;
     let queryParams = [req.params.eventId];
     const { rows } = await db.query(queryString, queryParams)
-    return res.status(200).json({
-      success: true,
-      data: rows,
-      queryParams: queryParams,
-    })    
+    return res.status(200).json({ rows })    
   } catch (error) {
     console.log(error.message);
   }
@@ -96,11 +80,7 @@ exports.markEventDone = async (req, res) => {
     let queryString = `UPDATE events SET done = NOT done WHERE id = $1;`;
     let queryParams = [req.params.eventId];
     const { rows } = await db.query(queryString, queryParams)
-    return res.status(200).json({
-      success: true,
-      data: rows,
-      queryParams: queryParams,
-    })    
+    return res.status(200).json({ rows });
   } catch (error) {
     console.log(error.message);
   }  
