@@ -42,18 +42,3 @@ exports.addNewPlan = async (req, res) => {
     console.log(error.message);
   }  
 }
-
-// Create a New Plan
-// const addNewPlan = (userId, planName) => {
-//   let queryString = `INSERT INTO plans (user_id, name, ordering) VALUES ($1, $2, 1);`;
-//   let queryParams = [userId, planName];
-
-//   return pool
-//     .query(queryString, queryParams)
-//     .then((res) => {
-//       return res.rows;
-//     })
-//     .catch((err) => {
-//       console.log(err.message);
-//     });
-// };

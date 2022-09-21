@@ -9,10 +9,7 @@ const client = yelp.client(yelpKey);
 exports.getEvents = async (req, res) => {
   try {
     const { rows } = await db.query('select * from events');
-    return res.status(200).json({
-      success: true,
-      users: rows,
-    })
+    return res.status(200).json({ rows });
   } catch (error) {
     console.log(error.message);
   }
@@ -114,12 +111,6 @@ exports.getSearch = async (req, res) => {
   try {
     const data = await searchYelp(req.params.keyword, req.params.location);
     return res.send(data.businesses);
-    // return res.status(200).json({
-    //   success: true,
-    //   data: data.business,
-    //   api_key: yelpKey,
-    // });
-
   } catch (error) {
     console.log(error.message);
   }    
