@@ -36,3 +36,15 @@ exports.addNewPlan = async (req, res) => {
     console.log(error.message);
   }  
 }
+
+
+exports.deletePlan = async (req, res) => {
+  try {
+    let queryString = `DELETE FROM plans WHERE id = $1;`;
+    let queryParams = [req.params.planId];
+    const { rows } = await db.query(queryString, queryParams)
+    return res.status(200).json({ rows })       
+  } catch (error) {
+    console.log(error);
+  }
+}
