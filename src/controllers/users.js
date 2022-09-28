@@ -44,19 +44,23 @@ exports.authUser = async (req, res) => {
   try {
     let queryString = `SELECT * FROM users WHERE users.email = $1`;
     let queryParams = [req.body.email];
-    const { user } = await db.query(queryString, queryParams);
+    const { rows } = await db.query(queryString, queryParams);
     
-    console.log("user:", user);
+    console.log("req.body.email:", req.body.email);
+    console.log("user:", rows);
 
     //First check the username
-    if (user === null) {
-      res.status(400).json("Wrong credentials.");
+    if (rows.length === 0) {
+      return  res.status(400).json("No user");
     } else {
-      //Now it checks the password
-      if (await bcrypt.compare(req.body.password, user.password)) {
+      //Now it checks the password - Authenticate user
+      if (await bcrypt.compare(req.body.password, rows[0].password)) {
+        
         res.status(200).json("Login successful");
+
+
       } else {
-        res.send("Not allowed")
+        res.send("Wrong credentials")
       }
     }
   } catch (error) {
