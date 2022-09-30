@@ -62,7 +62,14 @@ exports.authUser = async (req, res) => {
         console.log("token: ", accessTkn);        
         console.log("user: ", rows[0].email);
         console.log("Login successful");
-        res.status(200).json({ accessToken: accessTkn });
+        res.status(200).json({ 
+          accessToken: accessTkn,
+          user_id: rows[0].id,
+          user_name: rows[0].name,
+          user_email: rows[0].email,
+          lat: "43.6532976025993",
+          lng: "-79.38359538925825"
+         });
 
       } else {
         res.send("Wrong credentials")
