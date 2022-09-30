@@ -1,5 +1,7 @@
 const db = require('../db');
 const bcrypt = require('bcrypt')
+require('dotenv').config();
+const jwt = require('jsonwebtoken');
 
 // Get all users
 exports.getUsers = async (req,res) => {
@@ -45,25 +47,41 @@ exports.authUser = async (req, res) => {
     let queryString = `SELECT * FROM users WHERE users.email = $1`;
     let queryParams = [req.body.email];
     const { rows } = await db.query(queryString, queryParams);
-    
-    console.log("req.body.email:", req.body.email);
-    console.log("user:", rows);
 
     //First check the username
     if (rows.length === 0) {
       return  res.status(400).json("No user");
     } else {
-      //Now it checks the password - Authenticate user
-      if (await bcrypt.compare(req.body.password, rows[0].password)) {
-        
-        res.status(200).json("Login successful");
 
+      //Now it checks the password - Authenticate user
+      if (await bcrypt.compare(req.body.password, rows[0].password)) {       
+
+        //Creates JWT
+        const accessTkn = jwt.sign(rows[0], process.env.ACCESS_TOKEN_SECRET);
+        
+        console.log("token: ", accessTkn);        
+        console.log("user: ", rows[0].email);
+        console.log("Login successful");
+        res.status(200).json({ accessToken: accessTkn });
 
       } else {
         res.send("Wrong credentials")
+        return
       }
     }
   } catch (error) {
     res.status(500).send("Something went wrong");
+    return
   }
+}
+
+exports.authToken = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader.split(' ')[1];
+  if (token == null) return res.sendStatus(401);
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  })
 }

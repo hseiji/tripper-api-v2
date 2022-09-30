@@ -12,15 +12,12 @@ exports.getPlans = async (req,res) => {
 
 exports.getPlansForUser = async (req,res) => {
   try {
-    let queryString = `SELECT * FROM plans WHERE plans.user_id = $1;`;
-    let queryParams = [req.params.userId];
+    let queryString = `SELECT * FROM plans WHERE plans.user_email = $1;`;
+    // let queryParams = [req.params.userId];
+    let queryParams = [req.user.email];
     const { rows } = await db.query(queryString, queryParams)
     return res.status(200).json({ rows });
-    // return res.status(200).json({
-    //   success: true,
-    //   data: rows,
-    //   queryParams: queryParams,
-    // })    
+
   } catch (error) {
     console.log(error.message);
   }
@@ -29,7 +26,9 @@ exports.getPlansForUser = async (req,res) => {
 exports.addNewPlan = async (req, res) => {
   try {
     let queryString = `INSERT INTO plans (user_id, name, ordering) VALUES ($1, $2, 1);`;
+    // let queryString = `INSERT INTO plans (user_id, name, ordering, user_email) VALUES ($1, $2, 1, $3);`;
     let queryParams = [req.body.info.userId, req.body.info.planName];
+    // let queryParams = [req.user.user_id, req.body.info.planName, req.user.user_email]; // from jwt 
     const { rows } = await db.query(queryString, queryParams)
     return res.status(200).json({ rows })    
   } catch (error) {

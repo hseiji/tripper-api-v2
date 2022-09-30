@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const { PORT, CLIENT_URL } = require('./constants');
+const { PORT } = require('./constants');
 const cors = require("cors");
 const { json, urlencoded } = require("body-parser");
 
@@ -19,7 +19,7 @@ app.use('/api', eventRoutes);
 app.use('/api', userRoutes);
 app.use('/api', planRoutes);
 app.get('/', (req, res) => {
-  res.send("Hello there1")
+  res.send("Hello there!")
   
 })
 
