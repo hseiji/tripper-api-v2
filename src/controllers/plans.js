@@ -12,9 +12,10 @@ exports.getPlans = async (req,res) => {
 
 exports.getPlansForUser = async (req,res) => {
   try {
-    let queryString = `SELECT * FROM plans WHERE plans.user_email = $1;`;
-    // let queryParams = [req.params.userId];
-    let queryParams = [req.user.email];
+    let queryString = `SELECT * FROM plans WHERE plans.user_id = $1;`;
+    // let queryString = `SELECT * FROM plans WHERE plans.user_email = $1;`;
+    let queryParams = [req.params.userId];
+    // let queryParams = [req.user.email];
     const { rows } = await db.query(queryString, queryParams)
     return res.status(200).json({ rows });
 
