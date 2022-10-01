@@ -4,7 +4,7 @@ const { authToken } = require('../controllers/users');
 
 const router = Router()
 
-router.get('/plans', getPlans);
+// router.get('/plans', getPlans);
 // router.get('/plans/:userId', getPlansForUser);
 
 router.get('/plans', authToken, getPlansForUser);
