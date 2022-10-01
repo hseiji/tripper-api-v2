@@ -1,9 +1,13 @@
-const db = require('../db');
+import { AppContext } from "../hooks/useAppContext";
+import { useContext } from "react";
 
+const db = require('../db');
 const yelpKey = process.env.YELP_APIKEY;
 const yelp = require('yelp-fusion');
 const client = yelp.client(yelpKey);
 
+
+const { selectedPlan } = useContext(AppContext);
 
 // Get all events
 exports.getEvents = async (req, res) => {
@@ -20,7 +24,7 @@ exports.getEvents = async (req, res) => {
 exports.getEventsForPlan = async (req, res) => {
   try {
     let queryString = `SELECT * FROM events WHERE events.plan_id = $1 ORDER BY date_time`;
-    let queryParams = [req.params.planId];
+    let queryParams = [selectedPlan];
     const { rows } = await db.query(queryString, queryParams)
     return res.status(200).json({ rows })
   } catch (error) {
