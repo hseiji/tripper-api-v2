@@ -82,6 +82,7 @@ exports.authUser = async (req, res) => {
   }
 }
 
+// Middleware - JWT authorization 
 exports.authToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader.split(' ')[1];
