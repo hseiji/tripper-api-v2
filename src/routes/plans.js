@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getPlansForUser, addNewPlan, getPlans, deletePlan } = require('../controllers/plans');
+const { getPlansForUser, addNewPlan, deletePlan } = require('../controllers/plans');
 const { authToken } = require('../controllers/users');
 
 const router = Router()
