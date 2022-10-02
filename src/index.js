@@ -7,10 +7,11 @@ const { json, urlencoded } = require("body-parser");
 app.use(json());
 app.use(urlencoded({ extended: true }));
 //initialize middlewares
-app.use(cors({
-  origin: '*',
-  credentials: false,
-}));
+app.use(cors());
+// app.use(cors({
+//   origin: '*',
+//   credentials: false,
+// }));
 
 //CORS
 // app.use((req, res, next) => {
