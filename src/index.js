@@ -10,10 +10,10 @@ app.use(json());
 app.use(urlencoded({ extended: true }));
 
 //CORS
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   next();
+// });
 
 //import routes
 const eventRoutes = require('./routes/events');
