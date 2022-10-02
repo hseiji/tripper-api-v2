@@ -9,7 +9,7 @@ app.use(urlencoded({ extended: true }));
 //initialize middlewares
 app.use(cors({
   origin: '*',
-  credentials: true,
+  credentials: false,
 }));
 
 //CORS
