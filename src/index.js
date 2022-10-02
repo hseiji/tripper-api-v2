@@ -5,7 +5,9 @@ const cors = require("cors");
 const { json, urlencoded } = require("body-parser");
 
 //initialize middlewares
-app.use(cors());
+app.use(cors({
+  origin: '*'
+}));
 app.use(json());
 app.use(urlencoded({ extended: true }));
 
