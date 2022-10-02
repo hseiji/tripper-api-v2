@@ -4,12 +4,13 @@ const { PORT } = require('./constants');
 const cors = require("cors");
 const { json, urlencoded } = require("body-parser");
 
-//initialize middlewares
-app.use(cors({
-  origin: '*'
-}));
 app.use(json());
 app.use(urlencoded({ extended: true }));
+//initialize middlewares
+app.use(cors({
+  origin: '*',
+  credentials: true,
+}));
 
 //CORS
 // app.use((req, res, next) => {
