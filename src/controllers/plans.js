@@ -1,8 +1,9 @@
 const db = require('../db');
-// import { useContext } from "react";
-// import { AppContext } from "../hooks/useAppContext";
+import { useContext } from "react";
+import { AppContext } from "../hooks/useAppContext";
 
-// const { user } = useContext(AppContext);
+const { user } = useContext(AppContext);
+console.log(user);
 
 exports.getPlans = async (req, res) => {
   try {
