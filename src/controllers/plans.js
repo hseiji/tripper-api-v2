@@ -26,10 +26,10 @@ exports.getPlansForUser = async (req, res) => {
 
 exports.addNewPlan = async (req, res) => {
   try {
-    let queryString = `INSERT INTO plans (user_id, name, ordering) VALUES ($1, $2, 1);`;
+    let queryString = `INSERT INTO plans (user_id, name, ordering, user_email) VALUES ($1, $2, 1, $3);`;
     // let queryString = `INSERT INTO plans (user_id, name, ordering, user_email) VALUES ($1, $2, 1, $3);`;
     console.log("req.body:", req.body);
-    let queryParams = [2, req.body.info.planName];
+    let queryParams = [2, req.body.info.planName, "homer@buup.com"];
     // let queryParams = [user.user_id, req.body.info.planName, user.user_email]; // from jwt 
     const { rows } = await db.query(queryString, queryParams)
     return res.status(200).json({ rows })    
