@@ -1,4 +1,8 @@
 const db = require('../db');
+import { useContext } from "react";
+import { AppContext } from "../hooks/useAppContext";
+
+const { user } = useContext(AppContext);
 
 exports.getPlans = async (req, res) => {
   try {
@@ -26,15 +30,15 @@ exports.getPlansForUser = async (req, res) => {
 
 exports.addNewPlan = async (req, res) => {
   try {
-    let queryString = `INSERT INTO plans (user_id, name, ordering) VALUES ($1, $2, 1);`;
-    // let queryString = `INSERT INTO plans (user_id, name, ordering, user_email) VALUES ($1, $2, 1, $3);`;
-    let queryParams = [req.body.info.userId, req.body.info.planName];
-    // let queryParams = [req.user.user_id, req.body.info.planName, req.user.user_email]; // from jwt 
+    // let queryString = `INSERT INTO plans (user_id, name, ordering) VALUES ($1, $2, 1);`;
+    let queryString = `INSERT INTO plans (user_id, name, ordering, user_email) VALUES ($1, $2, 1, $3);`;
+    // let queryParams = [req.body.info.userId, req.body.info.planName];
+    let queryParams = [user.user_id, req.body.info.planName, user.user_email]; // from jwt 
     const { rows } = await db.query(queryString, queryParams)
     return res.status(200).json({ rows })    
   } catch (error) {
     console.log(error.message);
-  }  
+  }
 }
 
 
