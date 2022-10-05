@@ -9,7 +9,9 @@ exports.getUsers = async (req,res) => {
     const { rows } = await db.query('select * from users');
     return res.status(200).json({ rows })
   } catch (error) {
-    console.log(error.message);
+    return res.status(404).json({
+      message: "No users found"
+    })
   }
 
 };
@@ -22,7 +24,9 @@ exports.getUserInfo = async (req,res) => {
     const { rows } = await db.query(queryString, queryParams)
     return res.status(200).json({ rows })
   } catch (error) {
-    console.log(error.message);
+    return res.status(404).json({
+      message: "No info"
+    })
   }
 }
 
@@ -36,8 +40,9 @@ exports.addNewUser = async (req, res) => {
     const { rows } = await db.query(queryString, queryParams);
     return res.status(200).json({ rows });
   } catch (error) {
-    console.log(error.message);
-    res.status(500).send("Something went wrong");
+    return res.status(500).json({
+      message: "Something went wrong when adding user"
+    })
   }
 }
 
@@ -85,10 +90,19 @@ exports.authUser = async (req, res) => {
 // Middleware - JWT authorization 
 exports.authToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
+  if (authHeader === undefined) {
+    return res.sendStatus(401).json({
+      message: "Unauthorized"
+    });
+  }
   const token = authHeader.split(' ')[1];
   if (token == null) return res.sendStatus(401);
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403);
+    if (err) {
+      return res.status(401).json({
+        message: "Token null"
+      })
+    }
     req.user = user;
     next();
   })

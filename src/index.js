@@ -4,20 +4,11 @@ const { PORT } = require('./constants');
 const cors = require("cors");
 const { json, urlencoded } = require("body-parser");
 
+//initialize middlewares
 app.use(json());
 app.use(urlencoded({ extended: true }));
-//initialize middlewares
 app.use(cors());
-// app.use(cors({
-//   origin: '*',
-//   credentials: false,
-// }));
 
-//CORS
-// app.use((req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', '*');
-//   next();
-// });
 
 //import routes
 const eventRoutes = require('./routes/events');
