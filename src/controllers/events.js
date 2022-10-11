@@ -1,5 +1,5 @@
-// import { AppContext } from "../hooks/useAppContext";
-// import { useContext } from "react";
+import { AppContext } from "../hooks/useAppContext";
+import { useContext } from "react";
 
 const db = require('../db');
 const yelpKey = process.env.YELP_APIKEY;
@@ -7,7 +7,7 @@ const yelp = require('yelp-fusion');
 const client = yelp.client(yelpKey);
 
 
-// const { selectedPlan } = useContext(AppContext);
+const { selectedPlan } = useContext(AppContext);
 
 // Get all events
 exports.getEvents = async (req, res) => {
