@@ -3,10 +3,11 @@ const router = Router()
 const { getEventsForPlan, addEventToPlan, deleteEvent, getEventById, markEventDone, getSearch, getEvents } = require('../controllers/events');
 const { authToken } = require('../controllers/users');
 
-// router.get('/events', getEvents);
+router.get('/events', getEvents);
 // router.get('/events/:planId', getEventsForPlan);
 
-router.get('/events', authToken, getEventsForPlan);
+// router.get('/events', authToken, getEventsForPlan);
+// router.get('/events', getEventsForPlan);
 
 router.put('/events/:planId', addEventToPlan);
 router.get('/events/id/:eventId', getEventById);
