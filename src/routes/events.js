@@ -4,17 +4,17 @@ const { getEventsForPlan, addEventToPlan, deleteEvent, getEventById, markEventDo
 const { authToken } = require('../controllers/users');
 
 // router.get('/events', getEvents);
-// router.get('/events/:planId', getEventsForPlan);
+// router.get('/events/id/:eventId', getEventById);
+
 
 router.get('/events/:planId', authToken, getEventsForPlan);
-// router.get('/events', getEventsForPlan);
 
 router.put('/events/:planId', authToken, addEventToPlan);
 
-router.get('/events/id/:eventId', getEventById);
-router.delete('/events/id/:eventId', deleteEvent);
+router.delete('/events/id/:eventId', authToken, deleteEvent);
 
-router.put('/events/done/:eventId', markEventDone);
+router.put('/events/done/:eventId', authToken, markEventDone);
+
 router.get('/events/search/:keyword/:location', getSearch);
 
 module.exports = router

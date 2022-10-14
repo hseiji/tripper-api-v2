@@ -10,6 +10,7 @@ const router = Router()
 router.get('/plans', authToken, getPlansForUser);
 
 router.put('/plans/:userId', addNewPlan);
-router.delete('/plans/:planId', deletePlan);
+
+router.delete('/plans/:planId', authToken, deletePlan);
 
 module.exports = router;
