@@ -11,6 +11,9 @@ exports.getEvents = async (req, res) => {
     return res.status(200).json({ rows });
   } catch (error) {
     console.log(error.message);
+    res.status(400).json({
+      message: "Error on getEvents"
+    })
   }
 
 };
@@ -18,14 +21,17 @@ exports.getEvents = async (req, res) => {
 // Get events for a specific plan id
 exports.getEventsForPlan = async (req, res) => {
   try {
-    console.log("selectedPlan back:", selectedPlan);
+    
     let queryString = `SELECT * FROM events WHERE events.plan_id = $1 ORDER BY date_time`;
-    // let queryParams = [req.params.planId];
-    let queryParams = [2];
+    let queryParams = [req.params.planId];
+    // let queryParams = [req.body.selectedPlan];
     const { rows } = await db.query(queryString, queryParams)
     return res.status(200).json({ rows })
   } catch (error) {
     console.log(error.message);
+    res.status(400).json({
+      message: "Error on getEventsForPlan"
+    })    
   }
 }
 
