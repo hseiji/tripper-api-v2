@@ -5,11 +5,10 @@ const { authToken } = require('../controllers/users');
 const router = Router()
 
 // router.get('/plans', getPlans);
-// router.get('/plans/:userId', getPlansForUser);
 
 router.get('/plans', authToken, getPlansForUser);
 
-router.put('/plans/:userId', addNewPlan);
+router.put('/plans/:userId', authToken, addNewPlan);
 
 router.delete('/plans/:planId', authToken, deletePlan);
 
