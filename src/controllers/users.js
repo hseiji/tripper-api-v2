@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 // Get all users
 exports.getUsers = async (req,res) => {
   try {
-    const { rows } = await db.query('select * from users');
+    const { rows } = await db.query('select * from users;');
     return res.status(200).json({ rows })
   } catch (error) {
     return res.status(404).json({
